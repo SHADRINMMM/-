@@ -1,6 +1,8 @@
 
 #include <iostream>
 #include <cmath>
+#include "TTree.h"
+
 void second()
 { const int nbins = 3;	
   
@@ -22,7 +24,7 @@ void second()
   t1.Branch("E",&E2,"E");
   //создаем дерево для записи 
   TFile ff("4.root", "recreate");
-  TTree t2("t1", "Simple Tree") ;
+  TTree t2("t2", "Simple Tree") ;
   Float_t Pt3,Eta3,Phi3,E3,Pt4,Eta4,Phi4,E4;
   t2.Branch("Pt",&Pt3,"Pt");
   t2.Branch("Eta",&Eta3,"Eta");
