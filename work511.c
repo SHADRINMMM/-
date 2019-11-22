@@ -2,7 +2,7 @@
 #include <cmath>
 using namespace std;
 
-void work51
+void work511 ()
 { const int nbins = 5;	
   TFile* f1= new TFile("MCData16a.root", "READ"); //данные 
   auto tree1 = (TTree*)f1->Get("NOMINAL");
@@ -21,9 +21,9 @@ void work51
   cutflow2->GetXaxis()->SetBinLabel(3, "pt_met_S> 130");
   cutflow2->GetXaxis()->SetBinLabel(3, "N_jets_S>=2");
   
-  TH1D *cutfloww = new TH1D("cutflow", "Number of accepted events", nbins, 1, nbins + 1);
-  cutflow->GetXaxis()->SetBinLabel(1, "All");
   TH1D *cutflow = new TH1D("cutflow", "Number of accepted events", nbins, 1, nbins + 1);
+  cutflow->GetXaxis()->SetBinLabel(1, "All");
+  TH1D *cutfloww = new TH1D("cutflow", "Number of accepted events", nbins, 1, nbins + 1);
   cutfloww->GetXaxis()->SetBinLabel(1, "All");
 
   
@@ -50,63 +50,65 @@ void work51
   cutflow1->SetDirectory(gROOT);
 // 4 вектора в которые будут составляться из дерева 
 // с индексом _S - собыите  
-   TLorentzVector lead_S  = 0;
-   TLorentzVector sub_lead_S = 0;
-   TLorentzVector ph_S = 0;
-   TLorentzVector met_S = 0;
+   TLorentzVector lead_S  ;
+   TLorentzVector sub_lead_S ;
+   TLorentzVector ph_S ;
+   TLorentzVector met_S ;
    
-   TLorentzVector lead_B  = 0;
-   TLorentzVector sub_lead_B = 0;
-   TLorentzVector ph_B = 0;
-   TLorentzVector met_B = 0;
+   TLorentzVector lead_B  ;
+   TLorentzVector sub_lead_B ;
+   TLorentzVector ph_B ;
+   TLorentzVector met_B ;
    //задание переменных 
-   Double_t pt_lead_S=0;
-   Double_t pt_lead_B=0;
-   Double_t pt_sublead_B=0;
-   Double_t pt_sublead_S=0;
+   Double_t pt_lead_S;
+   Double_t pt_lead_B;
+   Double_t pt_sublead_B;
+   Double_t pt_sublead_S;
    
-   Double_t pt_met_B=0;
-   Double_t pt_met_S=0;
-   Double_t pt_ph_B=0;
-   Double_t pt_ph_S =0;
+   Double_t pt_met_B;
+   Double_t pt_met_S;
+   Double_t pt_ph_B;
+   Double_t pt_ph_S ;
    
-   Double_t eta_lead_S=0;
-   Double_t eta_lead_B=0;
-   Double_t eta_sublead_S=0;
-   Double_t eta_sublead_B=0;
+   Double_t eta_lead_S;
+   Double_t eta_lead_B;
+   Double_t eta_sublead_S;
+   Double_t eta_sublead_B;
    
-   Double_t eta_ph_S=0;
-   Double_t eta_ph_B=0;
+   Double_t eta_ph_S;
+   Double_t eta_ph_B;
    
-   Double_t phi_lead_S=0;
-   Double_t phi_lead_B=0;
-   Double_t phi_sublead_S=0;
-   Double_t phi_sublead_B=0;
+   Double_t phi_lead_S;
+   Double_t phi_lead_B;
+   Double_t phi_sublead_S;
+   Double_t phi_sublead_B;
    
-   Double_t phi_met_S=0;
-   Double_t phi_met_B=0;
+   Double_t phi_met_S;
+   Double_t phi_met_B;
    
-   Double_t phi_ph_S=0;
-   Double_t phi_ph_B=0;
+   Double_t phi_ph_S;
+   Double_t phi_ph_B;
    
-   Double_t E_lead_S=0;
-   Double_t E_lead_B=0;
+   Double_t E_lead_S;
+   Double_t E_lead_B;
    
-   Double_t E_sublead_S=0;
-   Double_t E_sublead_B=0;
+   Double_t E_sublead_S;
+   Double_t E_sublead_B;
+   Double_t N_jets_B;
+   Double_t N_jets_S;
  // cчитывание данных из дерева 
    tree1-> SetBranchAddress ( "jet_lead_pt" , &pt_lead_S);
-   tree1> SetBranchAddress ( "jet_lead_eta" , &eta_lead_S);
+   tree1-> SetBranchAddress ( "jet_lead_eta" , &eta_lead_S);
    tree1-> SetBranchAddress ( "jet_lead_phi" , &phi_lead_S);
    tree1-> SetBranchAddress ( "jet_lead_E" , &E_lead_S);
    
    tree2-> SetBranchAddress ( "jet_lead_pt" , &pt_lead_B);
-   tree2> SetBranchAddress ( "jet_lead_eta" , &eta_lead_B);
+   tree2-> SetBranchAddress ( "jet_lead_eta" , &eta_lead_B);
    tree2-> SetBranchAddress ( "jet_lead_phi" , &phi_lead_B);
    tree2-> SetBranchAddress ( "jet_lead_E" , &E_lead_B);
    
    tree1-> SetBranchAddress ( "jet_sublead_pt" , &pt_sublead_S);
-   tree1> SetBranchAddress ( "jet_sublead_eta" , &eta_sublead_S);
+   tree1-> SetBranchAddress ( "jet_sublead_eta" , &eta_sublead_S);
    tree1-> SetBranchAddress ( "jet_sublead_phi" , &phi_sublead_S);
    tree1-> SetBranchAddress ( "jet_sublead_E" , &E_sublead_S);
    
@@ -116,12 +118,12 @@ void work51
    tree2-> SetBranchAddress ( "jet_sublead_E" , &E_sublead_B);
    
    tree1-> SetBranchAddress ( "ph_pt" , &pt_ph_S);
-   tree1> SetBranchAddress ( "ph_eta" , &eta_ph_S);
+   tree1-> SetBranchAddress ( "ph_eta" , &eta_ph_S);
    tree1-> SetBranchAddress ( "ph_phi" , &phi_ph_S);
 
    
    tree2-> SetBranchAddress ( "ph_pt" , &pt_ph_B);
-   tree2> SetBranchAddress ( "ph_eta" , &eta_ph_B);
+   tree2-> SetBranchAddress ( "ph_eta" , &eta_ph_B);
    tree2-> SetBranchAddress ( "ph_phi" , &phi_ph_B);
 
    
@@ -147,6 +149,12 @@ Long64_t Kr_mass_B=0;
 Long64_t Kr_rapidity_B=0;
 Long64_t Kr_pt_B =0;
  
+  Double_t njj_S=0;
+  Double_t njj_B=0;
+  Double_t dnjj_S=0;
+  Double_t dnjj_B=0;
+  Double_t zet_S=0;
+  Double_t zet_B=0;
 
   Long64_t nEvents_S = tree1->GetEntries();
   
@@ -175,13 +183,13 @@ cutflow_S->Fill(2);
 if((abs(lead_S.Rapidity()-sub_lead_S.Rapidity()))>2.5) Kr_rapidity_S=Kr_rapidity_S+1;
 cutflow_S->Fill(3);
 //критерий на центральность 
-njj=(lead_S.PseudoRapidity()+sub_lead_S.PseudoRapidity())/2;	
-dnjj=(lead_S.PseudoRapidity()-lead_S.PseudoRapidity());
-zet=abs((ph_S.PseudoRapidity()-njj)/dnjj)
-if (zet<0.3) Kr_cetr_S=Kr_cetr_S+1;
+njj_S=(lead_S.PseudoRapidity()+sub_lead_S.PseudoRapidity())/2;	
+dnjj_S=(lead_S.PseudoRapidity()-lead_S.PseudoRapidity());
+zet_S=abs((ph_S.PseudoRapidity()-njj_S)/dnjj_S);
+if (zet_S<0.3) Kr_cetr_S=Kr_cetr_S+1;
 cutflow_S->Fill(4);
 //критерий на pt 
-if(pow(((lead_S+sub_lead_S+ph_S+met_S).Pt()),2)/(pow(lead_S.Pt(),2)+pow(sub_lead_S.Pt(),2)+pow(ph_S.Pt(),2)+pow(met_B.S(),2))<0.1) Kr_pt_S=Kr_pt_S+1;
+if(pow(((lead_S+sub_lead_S+ph_S+met_S).Pt()),2)/(pow(lead_S.Pt(),2)+pow(sub_lead_S.Pt(),2)+pow(ph_S.Pt(),2)+pow(met_S.E(),2))<0.1) Kr_pt_S=Kr_pt_S+1;
   cutflow_S->Fill(5);
   }
   
@@ -214,10 +222,10 @@ cutflow_B->Fill(2);
 if((abs(lead_B.Rapidity()-sub_lead_B.Rapidity()))>2.5) Kr_rapidity_B=Kr_rapidity_B+1;
 cutflow_B->Fill(3);
 //критерий на центральность 
-njj=(lead_B.PseudoRapidity()+sub_lead_B.PseudoRapidity())/2;	
-dnjj=(lead_B.PseudoRapidity()-lead_B.PseudoRapidity());
-zet=abs((ph_B.PseudoRapidity()-njj)/dnjj)
-if (zet<0.3) Kr_cetr_B=Kr_cetr_B+1;
+njj_B=(lead_B.PseudoRapidity()+sub_lead_B.PseudoRapidity())/2;	
+dnjj_B=(lead_B.PseudoRapidity()-lead_B.PseudoRapidity());
+zet_B=abs((ph_B.PseudoRapidity()-njj_B)/dnjj_B);
+if (zet_B<0.3) Kr_cetr_B=Kr_cetr_B+1;
 cutflow_B->Fill(4);
 //критерий на pt 
 if(pow(((lead_B+sub_lead_B+ph_B+met_B).Pt()),2)/(pow(lead_B.Pt(),2)+pow(sub_lead_B.Pt(),2)+pow(ph_B.Pt(),2)+pow(met_B.E(),2))<0.1) Kr_pt_B=Kr_pt_B+1;
