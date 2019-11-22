@@ -3,23 +3,23 @@
 using namespace std;
 
 void work511 ()
-{ const int nbins = 5;	
+{ const int nbins = 6;	
   TFile* f1= new TFile("MCData16a.root", "READ"); //данные 
-  auto tree1 = (TTree*)f1->Get("NOMINAL");
+  auto tree1 = (TTree*)f1->Get("output_tree");
   TFile* f2= new TFile("MCData16.root", "READ");//фон
-  auto tree2 = (TTree*)f2->Get("NOMINAL");
+  auto tree2 = (TTree*)f2->Get("output_tree");
   
   TH1D *cutflow1 = new TH1D("cutflow", "Number of accepted events", nbins, 1, nbins + 1);
   cutflow1->GetXaxis()->SetBinLabel(1, "All");
   cutflow1->GetXaxis()->SetBinLabel(2, "pt_ph_S > 150");
   cutflow1->GetXaxis()->SetBinLabel(3, "pt_met_S> 130");
-  cutflow1->GetXaxis()->SetBinLabel(3, "N_jets_S>=2");
+  cutflow1->GetXaxis()->SetBinLabel(4, "N_jets_S>=2");
   
   TH1D *cutflow2 = new TH1D("cutflow", "Number of accepted events", nbins, 1, nbins + 1);
   cutflow2->GetXaxis()->SetBinLabel(1, "All");
   cutflow2->GetXaxis()->SetBinLabel(2, "pt_ph_S > 150");
   cutflow2->GetXaxis()->SetBinLabel(3, "pt_met_S> 130");
-  cutflow2->GetXaxis()->SetBinLabel(3, "N_jets_S>=2");
+  cutflow2->GetXaxis()->SetBinLabel(4, "N_jets_S>=2");
   
   TH1D *cutflow = new TH1D("cutflow", "Number of accepted events", nbins, 1, nbins + 1);
   cutflow->GetXaxis()->SetBinLabel(1, "All");
@@ -31,19 +31,19 @@ void work511 ()
   cutflow_S->GetXaxis()->SetBinLabel(1, "All");
   cutflow_S->GetXaxis()->SetBinLabel(2, "mjj");
   cutflow_S->GetXaxis()->SetBinLabel(3, "Rapidity");
-  cutflow_S->GetXaxis()->SetBinLabel(3, "centr");
-  cutflow_S->GetXaxis()->SetBinLabel(3, "pt balance");
+  cutflow_S->GetXaxis()->SetBinLabel(4, "centr");
+  cutflow_S->GetXaxis()->SetBinLabel(5, "pt balance");
   
   TH1D *cutflow_B = new TH1D("cutflow", "Number events with kriteria for background", nbins, 1, nbins + 1);
   cutflow_B->GetXaxis()->SetBinLabel(1, "All");
   cutflow_B->GetXaxis()->SetBinLabel(2, "mjj");
   cutflow_B->GetXaxis()->SetBinLabel(3, "Rapidity");
-  cutflow_B->GetXaxis()->SetBinLabel(3, "centr");
-  cutflow_B->GetXaxis()->SetBinLabel(3, "pt balance");
+  cutflow_B->GetXaxis()->SetBinLabel(4, "centr");
+  cutflow_B->GetXaxis()->SetBinLabel(5, "pt balance");
   
   
   TCanvas *c = new TCanvas("c","",1900,1900);
-  c->Divide(4);
+  c->Divide(2);
   cutflow_S->SetDirectory(gROOT);
   cutflow_B->SetDirectory(gROOT);
   cutflow->SetDirectory(gROOT);
@@ -94,8 +94,8 @@ void work511 ()
    
    Double_t E_sublead_S;
    Double_t E_sublead_B;
-   Double_t N_jets_B;
-   Double_t N_jets_S;
+   Long64_t N_jets_B;
+   Long64_t N_jets_S;
  // cчитывание данных из дерева 
    tree1-> SetBranchAddress ( "jet_lead_pt" , &pt_lead_S);
    tree1-> SetBranchAddress ( "jet_lead_eta" , &eta_lead_S);
@@ -265,6 +265,6 @@ f2->Close();
   cutflow2->Draw("HIST same");
  c->cd(2);
   cutflow_S->Draw("HIST");
- c->cd(3);
-  cutflow_B->Draw("HIST");
+  cutflow_B->SetLineColor(6);
+  cutflow_B->Draw("HIST same");
 }
